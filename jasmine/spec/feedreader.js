@@ -73,10 +73,10 @@ $(function() {
         beforeEach(function(done) {
             loadFeed(0, function() {
                 loadFeed(1, function() {
-                    secondContent = $('.feed').html();
+                    firstContent = $('.feed').html();
                     done();
                 });
-                firstContent = $('.feed').html();
+                secondContent = $('.feed').html();
             });
         });
         it('is loading content that changes', function() {
