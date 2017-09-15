@@ -3,16 +3,15 @@
  * This is the spec file that Jasmine will read and contains
  * all of the tests that will be run against your application.
  */
-
 /* We're placing all of our tests within the $() function,
  * since some of these tests may require DOM elements. We want
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
     /* This is our first test suite - a test suite just contains
-    * a related set of tests. This suite is all about the RSS
-    * feeds definitions, the allFeeds variable in our application.
-    */
+     * a related set of tests. This suite is all about the RSS
+     * feeds definitions, the allFeeds variable in our application.
+     */
     describe('RSS Feeds', function() {
         /* This is our first test - it tests to make sure that the
          * allFeeds variable has been defined and that it is not
@@ -26,69 +25,68 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-         it('has a valid URL', function() {
-            allFeeds.forEach(function(feed){
+        it('has a valid URL', function() {
+            allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url).not.toBe('');
 
 
             });
-         });
+        });
 
-            it('has a valid name', function() {
-            allFeeds.forEach(function(feed){
+        it('has a valid name', function() {
+            allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBe('');
 
 
             });
-         });
+        });
 
     });
 
     describe('The menu', function() {
-        it('is hidden by default', function(){
-        expect($('body').attr("class")).toMatch("menu-hidden");
+        it('is hidden by default', function() {
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
 
-        it('changes visibility when clicked', function(){
+        it('changes visibility when clicked', function() {
             $('.menu-icon-link').trigger("click");
-            expect($('body').attr("class")).not.toMatch("menu-hidden");
+            expect($('body').hasClass("menu-hidden")).toBe(false);
             $('.menu-icon-link').trigger("click");
-            expect($('body').attr("class")).toMatch("menu-hidden");
+            expect($('body').hasClass("menu-hidden")).toBe(true);
         });
 
     });
 
-    describe('Initial Entries', function(){
-            beforeEach(function(done){
-                loadFeed(0,function(){
-                    done();
-                });
-            });
-
-            it('has at least one .entry element in its .feed container', function(done){
-                expect($('.feed').length).toBeGreaterThan(0);
+    describe('Initial Entries', function() {
+        beforeEach(function(done) {
+            loadFeed(0, function() {
                 done();
             });
+        });
+
+        it('has at least one .entry element in its .feed container', function() {
+            expect($('.feed a').hasClass("entry-link")).toBe(true);
+
+        });
     });
 
-    describe('New Feed Selection', function(){
+    describe('New Feed Selection', function() {
         var firstContent;
         var secondContent;
-                beforeEach(function(done){
-                loadFeed(0,function(){
-                    loadFeed(1,function(){
-                        secondContent = $('.feed').html();
-                               done();
-                    });
-                    firstContent = $('.feed').html();
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                loadFeed(1, function() {
+                    secondContent = $('.feed').html();
+                    done();
                 });
+                firstContent = $('.feed').html();
             });
-            it('is loading content that changes', function(done){
-                expect(firstContent).not.toEqual(secondContent);
-                done();
-            });
+        });
+        it('is loading content that changes', function() {
+            expect(firstContent).not.toEqual(secondContent);
+        });
     });
 
 
