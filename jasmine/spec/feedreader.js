@@ -47,9 +47,9 @@ $(function() {
         });
 
         it('changes visibility when clicked', function() {
-            $('.menu-icon-link').trigger("click");
+            $('.menu-icon-link').click();
             expect($('body').hasClass("menu-hidden")).toBe(false);
-            $('.menu-icon-link').trigger("click");
+            $('.menu-icon-link').click();
             expect($('body').hasClass("menu-hidden")).toBe(true);
         });
 
